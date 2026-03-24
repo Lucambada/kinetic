@@ -21,15 +21,37 @@ interface LayoutProps {
 }
 
 const navItems = [
-  { icon: LayoutDashboard, label: 'Dashboard', path: '/' },
-  { icon: Share2, label: 'Traceability', path: '/traceability' },
-  { icon: Settings, label: 'Operations', path: '/operations' },
-  { icon: Users, label: 'Team', path: '/team' },
-  { icon: Gavel, label: 'Audit Logs', path: '/audit' },
+  { icon: LayoutDashboard, label: 'Painel', path: '/' },
+  { icon: Share2, label: 'Rastreabilidade', path: '/traceability' },
+  { icon: Settings, label: 'Operações', path: '/operations' },
+  { icon: Users, label: 'Equipe', path: '/team' },
+  { icon: Gavel, label: 'Logs de Auditoria', path: '/audit' },
 ];
 
 export default function Layout({ onLogout }: LayoutProps) {
   const location = useLocation();
+  const [showGasPrices, setShowGasPrices] = React.useState(false);
+
+  const gasPrices = [
+    { name: 'Gasolina Comum', price: 'R$ 5,84' },
+    { name: 'Gasolina Aditivada', price: 'R$ 6,12' },
+    { name: 'Diesel S10', price: 'R$ 5,98' },
+    { name: 'Diesel S500', price: 'R$ 5,82' },
+    { name: 'Etanol Hidratado', price: 'R$ 3,75' },
+    { name: 'GLP (13kg)', price: 'R$ 112,00' },
+    { name: 'GNV', price: 'R$ 4,65/m³' },
+    { name: 'Querosene de Aviação', price: 'R$ 4,20/L' },
+    { name: 'Óleo Combustível', price: 'R$ 3,45/kg' },
+    { name: 'Nafta Petroquímica', price: 'R$ 2,95/kg' },
+  ];
+
+  const lastUpdated = new Date().toLocaleString('pt-BR', { 
+    day: '2-digit', 
+    month: '2-digit', 
+    year: 'numeric', 
+    hour: '2-digit', 
+    minute: '2-digit' 
+  });
 
   return (
     <div className="flex min-h-screen bg-background text-on-surface">
@@ -40,7 +62,7 @@ export default function Layout({ onLogout }: LayoutProps) {
             KINETIC LEDGER
           </div>
           <div className="font-sans text-[10px] font-medium uppercase tracking-widest text-neutral-500">
-            Admin Terminal
+            Terminal de Administração
           </div>
         </div>
 
@@ -68,7 +90,7 @@ export default function Layout({ onLogout }: LayoutProps) {
         <div className="mt-auto p-4 border-t border-white/5">
           <button className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary-container py-3 font-bold text-white transition-all hover:opacity-90 active:scale-95">
             <Plus size={18} />
-            <span>New Transaction</span>
+            <span>Nova Transação</span>
           </button>
           
           <div className="mt-4 space-y-1">
@@ -77,11 +99,11 @@ export default function Layout({ onLogout }: LayoutProps) {
               className="flex w-full items-center gap-3 px-4 py-2 text-xs font-medium uppercase tracking-tighter text-neutral-500 hover:text-red-500 transition-colors"
             >
               <LogOut size={14} />
-              <span>Terminate Session</span>
+              <span>Encerrar Sessão</span>
             </button>
             <Link to="/support" className="flex items-center gap-3 px-4 py-2 text-xs font-medium uppercase tracking-tighter text-neutral-500 hover:text-neutral-200 transition-colors">
               <HelpCircle size={14} />
-              <span>Support</span>
+              <span>Suporte</span>
             </Link>
           </div>
         </div>
@@ -96,9 +118,39 @@ export default function Layout({ onLogout }: LayoutProps) {
               {navItems.find(i => i.path === location.pathname)?.label || 'Terminal'}
             </h1>
             <nav className="hidden items-center gap-6 md:flex">
-              <a href="#" className="text-sm font-medium text-neutral-400 transition-colors hover:text-neutral-200">Node Health</a>
-              <a href="#" className="text-sm font-medium text-neutral-400 transition-colors hover:text-neutral-200">Active Nodes</a>
-              <a href="#" className="text-sm font-medium text-neutral-400 transition-colors hover:text-neutral-200">Gas Status</a>
+              <a href="#" className="text-sm font-medium text-neutral-400 transition-colors hover:text-neutral-200">Saúde do Nó</a>
+              <a href="#" className="text-sm font-medium text-neutral-400 transition-colors hover:text-neutral-200">Nós Ativos</a>
+              <div className="relative">
+                <button 
+                  onClick={() => setShowGasPrices(!showGasPrices)}
+                  className="flex items-center gap-2 text-sm font-medium text-neutral-400 transition-colors hover:text-neutral-200"
+                >
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
+                  </span>
+                  Status do Gás
+                </button>
+                {showGasPrices && (
+                  <div className="absolute top-full left-0 mt-2 w-72 rounded-xl border border-white/10 bg-surface-container-low p-5 shadow-2xl backdrop-blur-xl">
+                    <div className="mb-4 flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <h4 className="text-[10px] font-bold uppercase tracking-widest text-primary">Preços de Derivados</h4>
+                        <span className="flex h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                      </div>
+                      <span className="text-[8px] text-neutral-500 uppercase">Atualizado: {lastUpdated}</span>
+                    </div>
+                    <div className="space-y-2.5">
+                      {gasPrices.map((gas) => (
+                        <div key={gas.name} className="flex justify-between text-xs border-b border-white/5 pb-1 last:border-0">
+                          <span className="text-neutral-400">{gas.name}</span>
+                          <span className="font-mono font-bold text-on-surface">{gas.price}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
             </nav>
           </div>
 
@@ -114,7 +166,7 @@ export default function Layout({ onLogout }: LayoutProps) {
               className="flex items-center gap-2 rounded-full bg-white/5 px-4 py-2 text-xs font-bold uppercase tracking-widest text-neutral-400 transition-all hover:bg-red-500/10 hover:text-red-500 active:scale-95"
             >
               <LogOut size={16} />
-              <span className="max-sm:hidden">Logout</span>
+              <span className="max-sm:hidden">Sair</span>
             </button>
           </div>
         </header>

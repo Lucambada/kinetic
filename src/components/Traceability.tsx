@@ -15,61 +15,61 @@ import { motion } from 'motion/react';
 import { cn } from '@/src/lib/utils';
 
 const batchProperties = [
-  { label: 'Product', value: 'High-Octane AvGas' },
-  { label: 'Volume', value: '42,500 L' },
-  { label: 'Purity', value: '99.8%', bar: true },
-  { label: 'Temp. Log', value: 'STABLE', highlight: true },
+  { label: 'Produto', value: 'AvGas de Alta Octanagem' },
+  { label: 'Volume', value: '42.500 L' },
+  { label: 'Pureza', value: '99.8%', bar: true },
+  { label: 'Log de Temp.', value: 'ESTÁVEL', highlight: true },
 ];
 
 const timelineEvents = [
   {
     id: 1,
-    date: '2023-11-24',
+    date: '24/11/2023',
     time: '08:14:22 UTC',
-    type: 'Extraction',
+    type: 'Extração',
     icon: Droplets,
-    detail: 'Crude Resource Harvesting',
+    detail: 'Colheita de Recursos Brutos',
     party: 'Borealis Energy Corp.',
-    location: 'North Sea Sector 7',
-    status: 'COMPLETED',
+    location: 'Setor 7 do Mar do Norte',
+    status: 'CONCLUÍDO',
     hash: '0x44a1...d72e',
   },
   {
     id: 2,
-    date: '2023-11-25',
+    date: '25/11/2023',
     time: '14:30:00 UTC',
-    type: 'Refining',
+    type: 'Refino',
     icon: Factory,
-    detail: 'Grade-A Fuel Distillation',
+    detail: 'Destilação de Combustível Grau A',
     party: 'Kinetic Refineries Ltd.',
-    location: 'Antwerp Hub',
-    status: 'COMPLETED',
+    location: 'Hub de Antuérpia',
+    status: 'CONCLUÍDO',
     hash: '0x92f3...b29c',
   },
   {
     id: 3,
-    date: '2023-11-26',
-    time: 'IN PROGRESS',
-    type: 'Transport',
+    date: '26/11/2023',
+    time: 'EM PROGRESSO',
+    type: 'Transporte',
     icon: Truck,
-    detail: 'Inter-Terminal Transit',
+    detail: 'Trânsito Inter-Terminal',
     party: 'Atlas Logistics Global',
-    location: 'Route: ANTW -> ROTT',
-    status: 'PENDING VERIFICATION',
-    hash: 'PENDING BLOCK CONFIRMATION...',
+    location: 'Rota: ANTW -> ROTT',
+    status: 'AGUARDANDO VERIFICAÇÃO',
+    hash: 'AGUARDANDO CONFIRMAÇÃO DO BLOCO...',
     isPending: true,
   },
   {
     id: 4,
     date: '--:--',
-    time: 'EST. 2023-11-27',
-    type: 'Storage',
+    time: 'EST. 27/11/2023',
+    type: 'Armazenamento',
     icon: Warehouse,
-    detail: 'Secure Vaulting',
-    party: 'Terminal 42 Operations',
-    location: 'Rotterdam Hub',
-    status: 'WAITING',
-    hash: 'HASH: NOT_AVAILABLE',
+    detail: 'Armazenamento Seguro',
+    party: 'Operações do Terminal 42',
+    location: 'Hub de Roterdã',
+    status: 'AGUARDANDO',
+    hash: 'HASH: NÃO_DISPONÍVEL',
     isFuture: true,
   },
 ];
@@ -80,13 +80,13 @@ export default function Traceability() {
       {/* Header */}
       <header className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
         <div className="space-y-2">
-          <span className="font-mono text-sm uppercase tracking-[0.2em] text-primary">Logistics Protocol v2.4</span>
+          <span className="font-mono text-sm uppercase tracking-[0.2em] text-primary">Protocolo de Logística v2.4</span>
           <h1 className="font-headline text-5xl font-bold tracking-tight">
-            Traceability <span className="text-primary-container">Engine</span>
+            Motor de <span className="text-primary-container">Rastreabilidade</span>
           </h1>
         </div>
         <div className="flex flex-col items-end gap-2 text-right">
-          <div className="font-mono text-xs text-on-surface-variant uppercase">Active Batch</div>
+          <div className="font-mono text-xs text-on-surface-variant uppercase">Lote Ativo</div>
           <div className="rounded-lg border border-white/5 bg-surface-high px-4 py-2 font-mono text-sm text-primary">
             0x8f7c...e29b
           </div>
@@ -100,7 +100,7 @@ export default function Traceability() {
           <div className="absolute inset-0">
             <img 
               src="https://picsum.photos/seed/worldmap/1200/800?grayscale&blur=4" 
-              alt="Transit Map" 
+              alt="Mapa de Trânsito" 
               className="h-full w-full object-cover opacity-30 contrast-125"
               referrerPolicy="no-referrer"
             />
@@ -126,16 +126,16 @@ export default function Traceability() {
           <div className="absolute top-6 left-6 w-64 rounded-lg border border-white/10 bg-surface-high/60 p-4 backdrop-blur-xl">
             <h3 className="mb-3 flex items-center gap-2 font-headline text-sm font-bold">
               <MapPin size={14} className="text-primary" />
-              Live Transit Map
+              Mapa de Trânsito ao Vivo
             </h3>
             <div className="space-y-3">
               <div className="flex items-center justify-between text-xs">
-                <span className="text-on-surface-variant">Origin</span>
-                <span className="font-bold">Port of Antwerp</span>
+                <span className="text-on-surface-variant">Origem</span>
+                <span className="font-bold">Porto de Antuérpia</span>
               </div>
               <div className="flex items-center justify-between text-xs">
-                <span className="text-on-surface-variant">Destination</span>
-                <span className="font-bold">Rotterdam Terminal</span>
+                <span className="text-on-surface-variant">Destino</span>
+                <span className="font-bold">Terminal de Roterdã</span>
               </div>
               <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-white/5">
                 <div className="h-full w-[65%] bg-primary"></div>
@@ -147,7 +147,7 @@ export default function Traceability() {
         {/* Properties Panel */}
         <section className="space-y-6 lg:col-span-4">
           <div className="rounded-xl border border-white/5 bg-surface-low p-6">
-            <h3 className="mb-4 font-headline text-lg font-bold">Batch Properties</h3>
+            <h3 className="mb-4 font-headline text-lg font-bold">Propriedades do Lote</h3>
             <div className="space-y-4">
               {batchProperties.map((prop) => (
                 <div key={prop.label} className="flex items-center justify-between border-b border-white/5 py-2 last:border-0">
@@ -170,11 +170,11 @@ export default function Traceability() {
           <div className="grid grid-cols-2 gap-4">
             <div className="rounded-xl border border-primary-container/30 bg-primary-container/20 p-4">
               <div className="mb-1 text-[10px] font-bold uppercase tracking-widest text-primary">Status</div>
-              <div className="font-headline text-lg font-bold">EN ROUTE</div>
+              <div className="font-headline text-lg font-bold">EM ROTA</div>
             </div>
             <div className="rounded-xl border border-white/5 bg-surface-high p-4">
-              <div className="mb-1 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Integrity</div>
-              <div className="font-headline text-lg font-bold">VERIFIED</div>
+              <div className="mb-1 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Integridade</div>
+              <div className="font-headline text-lg font-bold">VERIFICADO</div>
             </div>
           </div>
         </section>
@@ -184,14 +184,14 @@ export default function Traceability() {
       <section className="space-y-8">
         <div className="flex items-center justify-between border-b border-white/10 pb-4">
           <h2 className="font-headline text-3xl font-bold">
-            Event <span className="text-primary">Ledger</span>
+            Ledger de <span className="text-primary">Eventos</span>
           </h2>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2 rounded-sm border border-white/5 bg-surface-high px-3 py-1 text-xs text-on-surface-variant">
-              <div className="h-2 w-2 rounded-full bg-primary-container"></div> Completed
+              <div className="h-2 w-2 rounded-full bg-primary-container"></div> Concluído
             </div>
             <div className="flex items-center gap-2 rounded-sm border border-white/5 bg-surface-high px-3 py-1 text-xs text-on-surface-variant">
-              <div className="h-2 w-2 rounded-full bg-amber-500"></div> Pending
+              <div className="h-2 w-2 rounded-full bg-amber-500"></div> Pendente
             </div>
           </div>
         </div>
@@ -230,7 +230,7 @@ export default function Traceability() {
                 </div>
 
                 <div className="md:col-span-3">
-                  <div className="mb-1 text-[10px] font-bold uppercase tracking-tighter text-on-surface-variant">Responsible Party</div>
+                  <div className="mb-1 text-[10px] font-bold uppercase tracking-tighter text-on-surface-variant">Parte Responsável</div>
                   <div className="text-sm font-medium">{event.party}</div>
                   <div className="text-xs text-neutral-500">{event.location}</div>
                 </div>

@@ -40,21 +40,21 @@ export default function Team() {
       {/* Header */}
       <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
         <div>
-          <h1 className="font-headline text-4xl font-black uppercase tracking-tighter">Collaborator Access</h1>
-          <p className="text-sm text-on-surface-variant">Manage team permissions and terminal access levels.</p>
+          <h1 className="font-headline text-4xl font-black uppercase tracking-tighter">Acesso de Colaboradores</h1>
+          <p className="text-sm text-on-surface-variant">Gerencie permissões de equipe e níveis de acesso ao terminal.</p>
         </div>
         <button className="flex items-center gap-2 rounded bg-primary-container px-6 py-3 font-bold uppercase tracking-widest text-white transition-all hover:opacity-90 active:scale-95">
-          <UserPlus size={18} /> Add Collaborator
+          <UserPlus size={18} /> Adicionar Colaborador
         </button>
       </div>
 
       {/* Stats Summary */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {[
-          { label: 'Total Members', value: '12' },
-          { label: 'Active Sessions', value: '8' },
-          { label: 'Pending Invites', value: '3' },
-          { label: 'Security Alerts', value: '0', color: 'text-green-500' },
+          { label: 'Total de Membros', value: '12' },
+          { label: 'Sessões Ativas', value: '8' },
+          { label: 'Convites Pendentes', value: '3' },
+          { label: 'Alertas de Segurança', value: '0', color: 'text-green-500' },
         ].map((stat) => (
           <div key={stat.label} className="rounded-xl border border-white/5 bg-surface-container-low p-6">
             <div className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">{stat.label}</div>
@@ -66,12 +66,12 @@ export default function Team() {
       {/* Team Table */}
       <div className="rounded-2xl border border-white/5 bg-surface-container-low overflow-hidden">
         <div className="flex flex-col justify-between gap-4 border-b border-white/5 p-6 sm:flex-row sm:items-center">
-          <h3 className="font-headline text-lg font-bold uppercase">Active Collaborators</h3>
+          <h3 className="font-headline text-lg font-bold uppercase">Colaboradores Ativos</h3>
           <div className="flex gap-2">
             <div className="relative">
               <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500" />
               <input 
-                placeholder="Search members..." 
+                placeholder="Pesquisar membros..." 
                 className="rounded border-none bg-background py-2 pl-9 pr-4 text-xs focus:ring-1 focus:ring-primary-container"
               />
             </div>
@@ -85,11 +85,11 @@ export default function Team() {
           <table className="w-full text-left">
             <thead>
               <tr className="border-b border-white/5 bg-black/20 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">
-                <th className="px-6 py-4">Collaborator</th>
-                <th className="px-6 py-4">Role</th>
-                <th className="px-6 py-4">Access Level</th>
+                <th className="px-6 py-4">Colaborador</th>
+                <th className="px-6 py-4">Cargo</th>
+                <th className="px-6 py-4">Nível de Acesso</th>
                 <th className="px-6 py-4">Status</th>
-                <th className="px-6 py-4 text-right">Actions</th>
+                <th className="px-6 py-4 text-right">Ações</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5">
@@ -102,7 +102,7 @@ export default function Team() {
               ) : members.length === 0 ? (
                 <tr>
                   <td colSpan={5} className="py-12 text-center text-xs text-on-surface-variant uppercase tracking-widest">
-                    No collaborators found
+                    Nenhum colaborador encontrado
                   </td>
                 </tr>
               ) : (

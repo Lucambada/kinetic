@@ -19,15 +19,15 @@ import React, { useEffect, useState } from 'react';
 import { AuditService } from '../services/supabaseService';
 
 const networkStats = [
-  { label: 'Sync Progress', value: '99.98%', detail: 'Block #18.4M', icon: Activity },
-  { label: 'Active Nodes', value: '2,481', detail: 'Global Cluster', icon: Server },
-  { label: 'Latency', value: '12ms', detail: 'Avg. Response', icon: Database },
+  { label: 'Progresso de Sincronização', value: '99.98%', detail: 'Bloco #18.4M', icon: Activity },
+  { label: 'Nós Ativos', value: '2,481', detail: 'Cluster Global', icon: Server },
+  { label: 'Latência', value: '12ms', detail: 'Resposta Média', icon: Database },
 ];
 
 const nodes = [
-  { id: 'NODE-ALPHA-01', region: 'EU-WEST', status: 'online', load: '42%', uptime: '182d' },
-  { id: 'NODE-BETA-04', region: 'US-EAST', status: 'online', load: '18%', uptime: '45d' },
-  { id: 'NODE-GAMMA-09', region: 'AS-SOUTH', status: 'warning', load: '89%', uptime: '12d' },
+  { id: 'NÓ-ALPHA-01', region: 'EU-WEST', status: 'online', load: '42%', uptime: '182d' },
+  { id: 'NÓ-BETA-04', region: 'US-EAST', status: 'online', load: '18%', uptime: '45d' },
+  { id: 'NÓ-GAMMA-09', region: 'AS-SOUTH', status: 'warning', load: '89%', uptime: '12d' },
 ];
 
 export default function AuditLogs() {
@@ -54,15 +54,15 @@ export default function AuditLogs() {
       {/* Header */}
       <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
         <div>
-          <h1 className="font-headline text-4xl font-black uppercase tracking-tighter">Admin Terminal</h1>
-          <p className="text-sm text-on-surface-variant">System-wide audit trail and network infrastructure management.</p>
+          <h1 className="font-headline text-4xl font-black uppercase tracking-tighter">Terminal Admin</h1>
+          <p className="text-sm text-on-surface-variant">Trilha de auditoria em todo o sistema e gestão de infraestrutura de rede.</p>
         </div>
         <div className="flex gap-2">
           <button className="flex items-center gap-2 rounded border border-white/10 bg-surface-high px-4 py-2 text-xs font-bold uppercase tracking-widest transition-all hover:bg-neutral-600">
-            <Download size={14} /> Export Logs
+            <Download size={14} /> Exportar Logs
           </button>
           <button className="flex items-center gap-2 rounded bg-primary-container px-4 py-2 text-xs font-bold uppercase tracking-widest text-white transition-all hover:opacity-90">
-            <Shield size={14} /> Security Scan
+            <Shield size={14} /> Escaneamento de Segurança
           </button>
         </div>
       </div>
@@ -88,12 +88,12 @@ export default function AuditLogs() {
         <section className="lg:col-span-8 space-y-6">
           <div className="rounded-2xl border border-white/5 bg-surface-container-low overflow-hidden">
             <div className="flex items-center justify-between border-b border-white/5 p-6">
-              <h3 className="font-headline text-lg font-bold uppercase">Immutable Audit Logs</h3>
+              <h3 className="font-headline text-lg font-bold uppercase">Logs de Auditoria Imutáveis</h3>
               <div className="flex items-center gap-2">
                 <div className="relative">
                   <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500" />
                   <input 
-                    placeholder="Search logs..." 
+                    placeholder="Pesquisar logs..." 
                     className="rounded border-none bg-background py-1.5 pl-9 pr-4 text-xs focus:ring-1 focus:ring-primary-container"
                   />
                 </div>
@@ -106,11 +106,11 @@ export default function AuditLogs() {
               <table className="w-full text-left">
                 <thead>
                   <tr className="border-b border-white/5 bg-black/20 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">
-                    <th className="px-6 py-4">Action</th>
-                    <th className="px-6 py-4">User</th>
-                    <th className="px-6 py-4">Time</th>
+                    <th className="px-6 py-4">Ação</th>
+                    <th className="px-6 py-4">Usuário</th>
+                    <th className="px-6 py-4">Hora</th>
                     <th className="px-6 py-4">Status</th>
-                    <th className="px-6 py-4 text-right">Details</th>
+                    <th className="px-6 py-4 text-right">Detalhes</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/5">
@@ -123,7 +123,7 @@ export default function AuditLogs() {
                   ) : logs.length === 0 ? (
                     <tr>
                       <td colSpan={5} className="py-12 text-center text-xs text-on-surface-variant uppercase tracking-widest">
-                        No logs recorded
+                        Nenhum log registrado
                       </td>
                     </tr>
                   ) : (
@@ -161,7 +161,7 @@ export default function AuditLogs() {
             </div>
             <div className="border-t border-white/5 p-4 text-center">
               <button className="text-[10px] font-bold uppercase tracking-widest text-primary hover:underline">
-                View Full Archive
+                Ver Arquivo Completo
               </button>
             </div>
           </div>
@@ -170,17 +170,17 @@ export default function AuditLogs() {
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div className="rounded-2xl border border-white/5 bg-surface-container-low p-6">
               <h4 className="mb-4 flex items-center gap-2 font-headline text-sm font-bold uppercase">
-                <Key size={16} className="text-primary" /> Security Policy
+                <Key size={16} className="text-primary" /> Política de Segurança
               </h4>
               <div className="space-y-3">
                 <div className="flex items-center justify-between rounded bg-background p-3">
-                  <span className="text-xs font-medium">2FA Enforcement</span>
+                  <span className="text-xs font-medium">Aplicação de 2FA</span>
                   <div className="h-4 w-8 rounded-full bg-primary-container p-1">
                     <div className="h-2 w-2 translate-x-4 rounded-full bg-white"></div>
                   </div>
                 </div>
                 <div className="flex items-center justify-between rounded bg-background p-3">
-                  <span className="text-xs font-medium">IP Whitelisting</span>
+                  <span className="text-xs font-medium">Lista Branca de IPs</span>
                   <div className="h-4 w-8 rounded-full bg-neutral-700 p-1">
                     <div className="h-2 w-2 rounded-full bg-neutral-400"></div>
                   </div>
@@ -189,19 +189,19 @@ export default function AuditLogs() {
             </div>
             <div className="rounded-2xl border border-white/5 bg-surface-container-low p-6">
               <h4 className="mb-4 flex items-center gap-2 font-headline text-sm font-bold uppercase">
-                <Code size={16} className="text-primary" /> API Infrastructure
+                <Code size={16} className="text-primary" /> Infraestrutura de API
               </h4>
               <div className="space-y-2">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-on-surface-variant">API Endpoint</span>
+                  <span className="text-on-surface-variant">Endpoint da API</span>
                   <span className="font-mono text-primary">api.kinetic.ledger/v1</span>
                 </div>
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-on-surface-variant">Auth Method</span>
+                  <span className="text-on-surface-variant">Método de Autenticação</span>
                   <span className="font-mono">OAuth 2.0 / JWT</span>
                 </div>
                 <button className="mt-2 w-full rounded bg-white/5 py-2 text-[10px] font-bold uppercase tracking-widest transition-colors hover:bg-white/10">
-                  Manage Keys
+                  Gerenciar Chaves
                 </button>
               </div>
             </div>
@@ -211,7 +211,7 @@ export default function AuditLogs() {
         {/* Network Topology Column */}
         <section className="lg:col-span-4 space-y-6">
           <div className="rounded-2xl border border-white/5 bg-surface-container-low p-6">
-            <h3 className="mb-6 font-headline text-sm font-bold uppercase tracking-widest">Network Topology</h3>
+            <h3 className="mb-6 font-headline text-sm font-bold uppercase tracking-widest">Topologia da Rede</h3>
             <div className="space-y-4">
               {nodes.map((node) => (
                 <div key={node.id} className="rounded-lg border border-white/5 bg-background p-4">
@@ -227,7 +227,7 @@ export default function AuditLogs() {
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <div className="text-[10px] uppercase text-neutral-500">Load</div>
+                      <div className="text-[10px] uppercase text-neutral-500">Carga</div>
                       <div className="text-sm font-bold">{node.load}</div>
                     </div>
                     <div>
@@ -245,23 +245,23 @@ export default function AuditLogs() {
               ))}
             </div>
             <button className="mt-6 w-full rounded border border-white/10 py-3 text-[10px] font-bold uppercase tracking-widest transition-all hover:bg-white/5">
-              Node Management
+              Gestão de Nós
             </button>
           </div>
 
           {/* System Health Widget */}
           <div className="rounded-2xl bg-primary-container p-6 text-white">
             <div className="mb-4 flex items-center justify-between">
-              <h4 className="font-headline text-sm font-bold uppercase">Global Sync Status</h4>
+              <h4 className="font-headline text-sm font-bold uppercase">Status de Sincronização Global</h4>
               <CheckCircle2 size={20} />
             </div>
             <div className="mb-6 flex items-baseline gap-2">
               <span className="font-headline text-5xl font-black">99.9%</span>
-              <span className="text-xs font-bold opacity-70">STABLE</span>
+              <span className="text-xs font-bold opacity-70">ESTÁVEL</span>
             </div>
             <div className="space-y-2">
               <div className="flex items-center justify-between text-[10px] font-bold uppercase">
-                <span>Data Integrity</span>
+                <span>Integridade dos Dados</span>
                 <span>100%</span>
               </div>
               <div className="h-1.5 w-full rounded-full bg-black/20">
