@@ -12,12 +12,12 @@ import {
   HelpCircle,
   LogOut
 } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, Outlet } from 'react-router-dom';
 import { cn } from '@/src/lib/utils';
 import { motion } from 'motion/react';
 
 interface LayoutProps {
-  children: React.ReactNode;
+  onLogout: () => void;
 }
 
 const navItems = [
@@ -28,7 +28,7 @@ const navItems = [
   { icon: Gavel, label: 'Audit Logs', path: '/audit' },
 ];
 
-export default function Layout({ children }: LayoutProps) {
+export default function Layout({ onLogout }: LayoutProps) {
   const location = useLocation();
 
   return (
@@ -72,10 +72,13 @@ export default function Layout({ children }: LayoutProps) {
           </button>
           
           <div className="mt-4 space-y-1">
-            <Link to="/settings" className="flex items-center gap-3 px-4 py-2 text-xs font-medium uppercase tracking-tighter text-neutral-500 hover:text-neutral-200 transition-colors">
-              <Settings size={14} />
-              <span>Settings</span>
-            </Link>
+            <button 
+              onClick={onLogout}
+              className="flex w-full items-center gap-3 px-4 py-2 text-xs font-medium uppercase tracking-tighter text-neutral-500 hover:text-red-500 transition-colors"
+            >
+              <LogOut size={14} />
+              <span>Terminate Session</span>
+            </button>
             <Link to="/support" className="flex items-center gap-3 px-4 py-2 text-xs font-medium uppercase tracking-tighter text-neutral-500 hover:text-neutral-200 transition-colors">
               <HelpCircle size={14} />
               <span>Support</span>
@@ -106,8 +109,12 @@ export default function Layout({ children }: LayoutProps) {
             <button className="rounded-full p-2 text-neutral-400 transition-all hover:bg-white/5 active:scale-95">
               <Globe size={20} />
             </button>
-            <button className="rounded-full p-2 text-neutral-400 transition-all hover:bg-white/5 active:scale-95">
-              <UserCircle size={20} />
+            <button 
+              onClick={onLogout}
+              className="flex items-center gap-2 rounded-full bg-white/5 px-4 py-2 text-xs font-bold uppercase tracking-widest text-neutral-400 transition-all hover:bg-red-500/10 hover:text-red-500 active:scale-95"
+            >
+              <LogOut size={16} />
+              <span className="max-sm:hidden">Logout</span>
             </button>
           </div>
         </header>
@@ -118,7 +125,7 @@ export default function Layout({ children }: LayoutProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
           >
-            {children}
+            <Outlet />
           </motion.div>
         </main>
       </div>

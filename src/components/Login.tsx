@@ -5,10 +5,13 @@ import {
   ChevronRight, 
   Fingerprint,
   Cpu,
-  Activity
+  Activity,
+  Mail
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { AuthService } from '../services/supabaseService';
 
 interface LoginProps {
   onLogin: () => void;
@@ -16,23 +19,30 @@ interface LoginProps {
 
 export default function Login({ onLogin }: LoginProps) {
   const [loading, setLoading] = useState(false);
-  const [operatorId, setOperatorId] = useState('');
-  const [securityKey, setSecurityKey] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
-    setTimeout(() => {
-      setLoading(false);
-      if (operatorId.toLowerCase() === 'david' && securityKey === '1234') {
+    try {
+      // Support legacy login for david/1234 if needed, but the user asked for registration
+      // So I'll default to Supabase Auth
+      await AuthService.signIn(email, password);
+      onLogin();
+    } catch (err: any) {
+      // Fallback for david/1234 if it's not in Supabase yet
+      if (email.toLowerCase() === 'david' && password === '1234') {
         onLogin();
       } else {
         setError('INVALID CREDENTIALS: ACCESS DENIED');
       }
-    }, 1200);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -69,15 +79,15 @@ export default function Login({ onLogin }: LoginProps) {
               </div>
             )}
             <div className="space-y-2">
-              <label className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Operator ID</label>
+              <label className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Operator Email</label>
               <div className="relative">
-                <Terminal size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500" />
+                <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500" />
                 <input 
                   required
-                  type="text"
-                  value={operatorId}
-                  onChange={(e) => setOperatorId(e.target.value)}
-                  placeholder="ADMIN_MTHORNE"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="operator@kinetic.io"
                   className="w-full rounded-lg border-none bg-background p-4 pl-12 font-mono text-sm text-on-surface focus:ring-2 focus:ring-primary-container"
                 />
               </div>
@@ -90,8 +100,8 @@ export default function Login({ onLogin }: LoginProps) {
                 <input 
                   required
                   type="password"
-                  value={securityKey}
-                  onChange={(e) => setSecurityKey(e.target.value)}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••••••"
                   className="w-full rounded-lg border-none bg-background p-4 pl-12 font-mono text-sm text-on-surface focus:ring-2 focus:ring-primary-container"
                 />
@@ -111,6 +121,12 @@ export default function Login({ onLogin }: LoginProps) {
                 </>
               )}
             </button>
+
+            <div className="text-center">
+              <Link to="/register" className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors">
+                New operator? Register for access
+              </Link>
+            </div>
           </form>
         </div>
 
