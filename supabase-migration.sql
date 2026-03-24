@@ -27,10 +27,11 @@ CREATE TABLE IF NOT EXISTS audit_logs (
 
 -- Team Table
 CREATE TABLE IF NOT EXISTS team_members (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  id UUID PRIMARY KEY, -- Matches auth.users.id
   name TEXT NOT NULL,
+  username TEXT UNIQUE,
   role TEXT NOT NULL,
-  email TEXT NOT NULL,
+  email TEXT NOT NULL UNIQUE,
   status TEXT NOT NULL, -- 'active', 'offline', 'away'
   access TEXT NOT NULL, -- 'Full Terminal', 'Ops Hub', etc.
   avatar TEXT,
@@ -43,13 +44,21 @@ ALTER TABLE operations ENABLE ROW LEVEL SECURITY;
 ALTER TABLE audit_logs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE team_members ENABLE ROW LEVEL SECURITY;
 
--- Create Policies (Allow all for now, to be hardened)
+-- Create Policies
+-- Operations
 CREATE POLICY "Allow all access to authenticated users" ON operations FOR ALL USING (auth.role() = 'authenticated');
+
+-- Audit Logs
 CREATE POLICY "Allow all access to authenticated users" ON audit_logs FOR ALL USING (auth.role() = 'authenticated');
-CREATE POLICY "Allow all access to authenticated users" ON team_members FOR ALL USING (auth.role() = 'authenticated');
+
+-- Team Members
+CREATE POLICY "Allow read access to authenticated users" ON team_members FOR SELECT USING (auth.role() = 'authenticated');
+CREATE POLICY "Allow insert for new signups" ON team_members FOR INSERT WITH CHECK (true); -- Allow anyone to insert during signup
+CREATE POLICY "Allow update for own profile" ON team_members FOR UPDATE USING (auth.uid() = id);
 
 -- Insert Initial Data (Optional)
-INSERT INTO team_members (name, role, email, status, access, avatar) VALUES 
-('Marcus Thorne', 'System Administrator', 'm.thorne@kinetic.io', 'active', 'Full Terminal', 'https://picsum.photos/seed/marcus/100/100'),
-('Elena Rodriguez', 'Operations Lead', 'e.rodriguez@kinetic.io', 'active', 'Ops Hub', 'https://picsum.photos/seed/elena/100/100'),
-('David Chen', 'Audit Specialist', 'd.chen@kinetic.io', 'away', 'Read-Only Audit', 'https://picsum.photos/seed/david/100/100');
+INSERT INTO team_members (id, name, username, role, email, status, access, avatar) VALUES 
+('00000000-0000-0000-0000-000000000001', 'Marcus Thorne', 'mthorne', 'System Administrator', 'm.thorne@kinetic.io', 'active', 'Full Terminal', 'https://picsum.photos/seed/marcus/100/100'),
+('00000000-0000-0000-0000-000000000002', 'Elena Rodriguez', 'erodriguez', 'Operations Lead', 'e.rodriguez@kinetic.io', 'active', 'Ops Hub', 'https://picsum.photos/seed/elena/100/100'),
+('00000000-0000-0000-0000-000000000003', 'David Chen', 'david', 'Audit Specialist', 'd.chen@kinetic.io', 'away', 'Read-Only Audit', 'https://picsum.photos/seed/david/100/100')
+ON CONFLICT (id) DO NOTHING;

@@ -5,7 +5,8 @@ import {
   ChevronRight, 
   UserPlus,
   Mail,
-  Activity
+  Activity,
+  Fingerprint
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import React, { useState } from 'react';
@@ -15,6 +16,7 @@ import { AuthService } from '../services/supabaseService';
 export default function Register() {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -27,7 +29,10 @@ export default function Register() {
     setError(null);
 
     try {
-      await AuthService.signUp(email, password, { full_name: fullName });
+      await AuthService.signUp(email, password, { 
+        full_name: fullName,
+        username: username 
+      });
       setSuccess(true);
       setTimeout(() => navigate('/login'), 3000);
     } catch (err: any) {
@@ -98,6 +103,21 @@ export default function Register() {
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="MARCUS THORNE"
+                    className="w-full rounded-lg border-none bg-background p-4 pl-12 font-mono text-sm text-on-surface focus:ring-2 focus:ring-primary-container"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Nome de Usuário</label>
+                <div className="relative">
+                  <Fingerprint size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500" />
+                  <input 
+                    required
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    placeholder="mthorne"
                     className="w-full rounded-lg border-none bg-background p-4 pl-12 font-mono text-sm text-on-surface focus:ring-2 focus:ring-primary-container"
                   />
                 </div>

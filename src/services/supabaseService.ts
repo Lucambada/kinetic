@@ -10,12 +10,46 @@ export const AuthService = {
       },
     });
     if (error) throw error;
+
+    // Create a team member entry for the new user
+    if (data.user) {
+      try {
+        await supabase.from('team_members').insert([{
+          id: data.user.id,
+          name: metadata.full_name || email.split('@')[0],
+          email: email,
+          username: metadata.username || email.split('@')[0],
+          role: 'Operador',
+          access: 'Nível 1',
+          status: 'active'
+        }]);
+      } catch (insertError) {
+        console.error('Failed to create team member record:', insertError);
+        // We don't throw here to avoid failing the whole signup if just the profile creation fails
+      }
+    }
+
     return data;
   },
 
-  async signIn(email: string, password: string) {
+  async signIn(identifier: string, password: string) {
+    let loginEmail = identifier;
+
+    // If it doesn't look like an email, try to resolve as username
+    if (!identifier.includes('@')) {
+      const { data, error } = await supabase
+        .from('team_members')
+        .select('email')
+        .eq('username', identifier)
+        .single();
+      
+      if (!error && data) {
+        loginEmail = data.email;
+      }
+    }
+
     const { data, error } = await supabase.auth.signInWithPassword({
-      email,
+      email: loginEmail,
       password,
     });
     if (error) throw error;

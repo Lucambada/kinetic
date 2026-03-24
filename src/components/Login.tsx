@@ -19,7 +19,7 @@ interface LoginProps {
 
 export default function Login({ onLogin }: LoginProps) {
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState('');
+  const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
 
@@ -29,10 +29,10 @@ export default function Login({ onLogin }: LoginProps) {
     setError(null);
 
     try {
-      await AuthService.signIn(email, password);
+      await AuthService.signIn(identifier, password);
       onLogin();
     } catch (err: any) {
-      if (email.toLowerCase() === 'david' && password === '1234') {
+      if (identifier.toLowerCase() === 'david' && password === '1234') {
         onLogin();
       } else {
         setError('CREDENCIAIS INVÁLIDAS: ACESSO NEGADO');
@@ -84,15 +84,15 @@ export default function Login({ onLogin }: LoginProps) {
               </div>
             )}
             <div className="space-y-2">
-              <label className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">E-mail do Operador</label>
+              <label className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Usuário ou E-mail</label>
               <div className="relative">
                 <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500" />
                 <input 
                   required
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="operador@kinetic.io"
+                  type="text"
+                  value={identifier}
+                  onChange={(e) => setIdentifier(e.target.value)}
+                  placeholder="usuário ou e-mail"
                   className="w-full rounded-lg border-none bg-background p-4 pl-12 font-mono text-sm text-on-surface focus:ring-2 focus:ring-primary-container"
                 />
               </div>
